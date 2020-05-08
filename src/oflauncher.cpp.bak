@@ -1,0 +1,17 @@
+#include "oflauncher.hpp"
+#include "ui_oflauncher.h"
+
+OFLauncher::OFLauncher(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::OFLauncher)
+{
+    ui->setupUi(this);
+    centralWidget()->layout()->setContentsMargins(0, 0, 0, 0);
+
+}
+
+OFLauncher::~OFLauncher()
+{
+    delete ui;
+}
+

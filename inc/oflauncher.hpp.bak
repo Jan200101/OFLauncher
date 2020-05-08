@@ -1,0 +1,21 @@
+#ifndef OFLAUNCHER_HPP
+#define OFLAUNCHER_HPP
+
+#include <QMainWindow>
+
+QT_BEGIN_NAMESPACE
+namespace Ui { class OFLauncher; }
+QT_END_NAMESPACE
+
+class OFLauncher : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    OFLauncher(QWidget *parent = nullptr);
+    ~OFLauncher();
+
+private:
+    Ui::OFLauncher *ui;
+};
+#endif // OFLAUNCHER_HPP
