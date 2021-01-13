@@ -1,0 +1,28 @@
+src/common
+ validate if filesystem operations are functional on Windows
+
+src/config
+ add configuration management
+  read, write to config file
+  parse config file (probably json?)
+
+src/steam
+ add steam detection on Windows
+
+src/svn
+ replace calls to svn binary with svn lib calls
+
+src/cli
+ test on Windows (requires patches to steam and svn)
+
+src/qt
+ clean up structure
+ implement functionality of all features in the background
+  spin off into different thread and sync process? (might depend on svn rewrite)
+
+README
+ clean up
+ add information about the project
+
+CMakeLists.txt
+ simplify build logic

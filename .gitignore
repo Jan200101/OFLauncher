@@ -1,0 +1,6 @@
+# IDE related stuff
+.vscode
+.cache
+
+# build related stuff
+build
