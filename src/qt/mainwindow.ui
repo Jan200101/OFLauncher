@@ -25,49 +25,161 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/logo/res/icon.ico</normaloff>:/logo/res/icon.ico</iconset>
+  </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow::separator  {
-	magin: 0;
-    padding: 0
-}
-
-QLabel, QPushButton, QProgressBar
+   <string notr="true">QLabel, QPushButton, QProgressBar
 {
    color: white;
-}
-
-#frame {
-
-	background-image: url(:/images/res/background_small.png);
-}
-
-QProgressBar
-{
-   text-align: left;
-   border: none;
-   background-color: rgba(0, 0, 0, 130);
-}
-
-QProgressBar::chunk
-{
-   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
-                                 stop:0 rgba(51, 37, 95, 255),
-                                 stop:1 rgba(160, 91, 185, 255));
-   border: none;
 }</string>
   </property>
   <widget class="QWidget" name="frame">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLabel" name="title">
-        <property name="text">
-         <string>OpenFortress</string>
+       <spacer name="leftSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="title">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLabel {
+    margin: 0;
+	padding: 2.5px;
+	padding-right: 5px;
+	padding-left: 5px;
+	border: 4px solid #4a2c86;
+}</string>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="images.qrc">:/logo/res/logo.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="settingsButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>75</width>
+            <height>75</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+	border: none;
+
+	background-color: rgba(0, 0, 0, 75);
+}
+</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="images.qrc">
+            <normaloff>:/icons/res/cog.png</normaloff>:/icons/res/cog.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3"/>
     </item>
     <item>
      <spacer name="verticalSpacer">
@@ -101,99 +213,60 @@ QProgressBar::chunk
        </spacer>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="buttonContainer">
-        <item>
-         <layout class="QHBoxLayout" name="settingsLayout">
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Minimum</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>150</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="settingsButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>75</width>
-              <height>75</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
-	border: none;
-	image: url(:/icons/res/cog.svg);
-    
-	background-color: rgba(0, 0, 0, 75);
-}
-
-QPushButton:pressed {
-	border: none;
-	image: url(:/icons/res/cog_pressed.svg);
-}</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="playLayout">
-          <item>
-           <widget class="QPushButton" name="playButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>215</width>
-              <height>65</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton {
-   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 50), stop:0.973366 rgba(0, 0, 0, 175), stop:0.975787 rgba(134, 76, 154, 255));
+       <widget class="QPushButton" name="playButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>215</width>
+          <height>65</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 50), stop:0.973366 rgba(0, 0, 0, 175), stop:0.975787 rgba(73, 43, 133, 255));
    border: none;
 }
 
 QPushButton:pressed {
-   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 175), stop:0.973366 rgba(0, 0, 0, 175), stop:0.975787 rgba(134, 76, 154, 255));
-   border: none;
+   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 190), stop:0.973366 rgba(0, 0, 0, 190), stop:0.975787 rgba(73, 43, 133, 255));
 }
 </string>
-            </property>
-            <property name="text">
-             <string>Play</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
+        </property>
+        <property name="text">
+         <string>Play</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
     <item>
      <widget class="QProgressBar" name="status">
+      <property name="styleSheet">
+       <string notr="true">QProgressBar
+{
+   text-align: center;
+   border: none;
+   background-color: rgba(0, 0, 0, 130);
+}
+
+QProgressBar::chunk
+{
+   background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+                                 stop:0 rgba(42, 28, 77, 255),
+                                 stop:1 rgba(73, 43, 133, 255));
+   border: none;
+}</string>
+      </property>
       <property name="value">
        <number>50</number>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
       <property name="format">
        <string>Message (%p%)</string>
@@ -201,16 +274,6 @@ QPushButton:pressed {
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>940</width>
-     <height>29</height>
-    </rect>
-   </property>
   </widget>
  </widget>
  <resources>

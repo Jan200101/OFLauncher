@@ -45,6 +45,12 @@ SET(QT_SOURCES
     src/qt/mainwindow.cpp
     src/qt/mainwindow.hpp
     src/qt/mainwindow.ui
+    src/qt/settings.cpp
+    src/qt/settings.cpp
+    src/qt/settings.hpp
+    src/qt/settings.ui
+    src/qt/workers.cpp
+    src/qt/workers.hpp
     src/qt/images.qrc
     ${COMMON_SOURCES}
 )
@@ -54,8 +60,8 @@ if(COMPILE_QT)
     set(CMAKE_AUTOMOC ON)
     set(CMAKE_AUTORCC ON)
 
-    find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
-    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+    find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Gui REQUIRED)
+    find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Gui REQUIRED)
 endif()
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
@@ -72,5 +78,6 @@ if(COMPILE_QT)
     add_executable(${CMAKE_PROJECT_NAME}_qt ${QT_SOURCES})
     target_compile_options(${CMAKE_PROJECT_NAME}_qt PRIVATE ${COMPILE_OPTIONS})
     target_link_libraries(${CMAKE_PROJECT_NAME}_qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+    target_include_directories(${CMAKE_PROJECT_NAME}_qt PRIVATE src)
 endif()
 

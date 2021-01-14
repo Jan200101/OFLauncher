@@ -1,15 +1,15 @@
 <RCC>
   <qresource prefix="logo">
-    <file>res/icon.ico</file>
-    <file>res/logo_small.png</file>
     <file>res/logo.png</file>
+    <file>res/icon.ico</file>
+  </qresource>
+  <qresource prefix="fonts">
+    <file>res/TF2Build.ttf</file>
   </qresource>
   <qresource prefix="icons">
-    <file>res/cog_pressed.svg</file>
-    <file>res/cog.svg</file>
+    <file>res/cog.png</file>
   </qresource>
   <qresource prefix="images">
-    <file>res/background_small.png</file>
     <file>res/background.png</file>
   </qresource>
 </RCC>

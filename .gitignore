@@ -3,4 +3,4 @@
 .cache
 
 # build related stuff
-build
+build*

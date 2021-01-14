@@ -1,6 +1,10 @@
 #ifndef STEAM_H
 #define STEAM_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stddef.h>
 
 #define STEAM_BIN "steam.sh"
@@ -14,5 +18,9 @@
 int runMod(char*, size_t);
 size_t getModPath(char*, size_t);
 size_t getSteamPath(char*, size_t);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
