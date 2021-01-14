@@ -1,7 +1,11 @@
 #ifndef SVN_H
 #define SVN_H
 
+#ifdef _WIN32
+#define SVN "svn.exe"
+#else
 #define SVN "/usr/bin/svn"
+#endif
 #define SVN_CHECKOUT "checkout"
 #define SVN_UPDATE "update"
 

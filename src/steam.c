@@ -2,10 +2,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <unistd.h>
-
-#ifdef __linux__
-#include <linux/limits.h>
-#endif
+#include <limits.h>
 
 #include "config.h"
 #include "steam.h"
@@ -24,7 +21,8 @@ int runMod(char* modpath, size_t size UNUSED)
 size_t getModPath(char* buf, size_t size)
 {
     char steam[PATH_MAX];
-    getSteamPath(steam, sizeof(steam));
+    if (!getSteamPath(steam, sizeof(steam)))
+        return 0;
 
     char name[PATH_MAX];
     getRepoName(name, sizeof(name));

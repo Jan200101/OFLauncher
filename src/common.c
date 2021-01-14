@@ -26,14 +26,22 @@ bool isFile(const char* path)
 {
     struct stat sb = getStat(path);
 
-    return S_ISREG(sb.st_mode) || S_ISLNK(sb.st_mode);
+    return S_ISREG(sb.st_mode)
+#ifndef _WIN32
+           || S_ISLNK(sb.st_mode);
+#endif
+           ;
 }
 
 bool isDir(const char* path)
 {
     struct stat sb = getStat(path);
 
-    return S_ISDIR(sb.st_mode) || S_ISLNK(sb.st_mode);
+    return S_ISDIR(sb.st_mode)
+#ifndef _WIN32
+           || S_ISLNK(sb.st_mode)
+#endif
+           ;
 }
 
 int removeDir(const char *path)
@@ -64,8 +72,10 @@ int removeDir(const char *path)
                 if (!stat(buf, &statbuf)) {
                     if (S_ISDIR(statbuf.st_mode))
                         r = removeDir(buf);
+#ifndef _WIN32
                     else if (S_ISLNK(statbuf.st_mode))
                         r = unlink(buf);
+#endif
                     else
                         r = remove(buf);
                 }

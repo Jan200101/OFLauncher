@@ -1,6 +1,3 @@
-src/common
- validate if filesystem operations are functional on Windows
-
 src/config
  add configuration management
   read, write to config file
@@ -11,9 +8,6 @@ src/steam
 
 src/svn
  replace calls to svn binary with svn lib calls
-
-src/cli
- test on Windows (requires patches to steam and svn)
 
 src/qt
  clean up structure

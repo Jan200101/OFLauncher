@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <stdio.h>
+#include <limits.h>
 
 #include "common.h"
 #include "config.h"
@@ -9,10 +10,6 @@
 
 #include "command.h"
 
-#ifdef __linux__
-#include <linux/limits.h>
-#endif
-
 #define ARRAY_LEN(arr) sizeof(arr) / sizeof(arr[0])
 
 int install(int, char**);
@@ -20,6 +17,7 @@ int uninstall(int, char**);
 int update(int, char**);
 int run(int, char**);
 int config(int, char**);
+int debug(int, char**);
 
 int help(int, char**);
 
@@ -30,16 +28,20 @@ static const struct Command commands[] = {
     { .name = "update",     .func = update,     .description = "" },
     { .name = "run",        .func = run,        .description = "" },
     //{ .name = "config",     .func = config,       .description = "" },
+    { .name = "debug",      .func = debug,      .description = "debug function" },
 };
 
 
 int main(int argc, char** argv)
 {
+    // TODO renable after testing is done
+    /*
     if (svn_check())
     {
         fprintf(stderr, "svn_check failed\n");
         return -1;
     }
+    */
 
     if (argc > 1)
     {
@@ -146,6 +148,24 @@ int config(int argc UNUSED, char** argv UNUSED)
     return 0;
 }
 
+int debug(int argc UNUSED, char** argv UNUSED)
+{
+    char mod[PATH_MAX];
+    getModPath(mod, sizeof(mod));
+    char steam[PATH_MAX];
+    getSteamPath(steam, sizeof(steam));
+
+    printf("svn_check %i\n"
+           "steam path %s\n"
+           "mod path %s\n",
+           svn_check(),
+           steam,
+           mod);
+
+
+    return 0;
+}
+
 int help(int argc UNUSED, char** argv UNUSED)
 {
     fprintf(stderr, "%s usage\n", NAME);
@@ -162,7 +182,7 @@ int help(int argc UNUSED, char** argv UNUSED)
 
     for (size_t i = 0; i < size; ++i)
     {
-        fprintf(stderr, "\t%-*s\t %s\n", (int)longestCommand, commands[i].name, commands[i].description);
+        fprintf(stderr, "\t%-*s  %s\n", (int)longestCommand, commands[i].name, commands[i].description);
     }
 
     return 0;
