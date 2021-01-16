@@ -17,6 +17,3 @@ src/qt
 README
  clean up
  add information about the project
-
-CMakeLists.txt
- simplify build logic
