@@ -1,37 +1,44 @@
 #include <iostream>
+#include <limits.h>
 
 #include "steam.h"
 #include "workers.hpp"
 
-void svnWorker::doWork(const enum svnWorker::svnTasks &parameter) {
-    svnResults result;
+Worker::Worker()
+{
+    modlen = getModPath(mod, sizeof(mod));
+}
 
-    char mod[PATH_MAX];
-    size_t modsize = getModPath(mod, sizeof(mod));
+void Worker::doWork(const enum Worker::Tasks_t &parameter) {
+    Results_t result = RESULT_NONE;
 
-    if (modsize)
+    if (modlen)
     {
         switch (parameter)
         {
-            case SVN_INSTALL:
-                std::cout << "SVN_INSTALL" << std::endl;
+            case TASK_IS_FOLDER:
+                result = RESULT_FOLDER_EXISTS;
                 break;
 
-            case SVN_UPDATE:
-                std::cout << "SVN_UPDATE" << std::endl;
+            case TASK_UPDATE:
+                svn_update(mod);
                 break;
 
-            case SVN_DELETE:
-                std::cout << "SVN_DELETE" << std::endl;
+            case TASK_UPDATE_RUN:
+                svn_update(mod);
+                result = RESULT_UPDATE_RUN;
                 break;
 
-            default:
-                result = SVN_UNKNOWN;
+            case TASK_RUN:
+                runMod(mod);
+                result = RESULT_EXIT;
+                std::cout << "RUN" << std::endl;
+                break;
         }
     }
     else
     {
-        result = SVN_BAD_PATH;
+        result = RESULT_FOLDER_MISSING;
     }
 
     emit resultReady(result);

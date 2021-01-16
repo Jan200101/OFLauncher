@@ -167,9 +167,6 @@ QPushButton:pressed {
 }
 </string>
         </property>
-        <property name="text">
-         <string>Play</string>
-        </property>
        </widget>
       </item>
       <item>

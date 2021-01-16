@@ -9,6 +9,10 @@
 #define FALLTHROUGH
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "stdbool.h"
 
 struct stat getStat(const char* path);
@@ -16,5 +20,9 @@ bool isFile(const char* path);
 bool isDir(const char* path);
 
 int removeDir(const char *path);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

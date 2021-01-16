@@ -15,7 +15,7 @@ extern "C" {
 
 #define MOD_DIR "steamapps/sourcemods/"
 
-int runMod(char*, size_t);
+int runMod(char*);
 size_t getModPath(char*, size_t);
 size_t getSteamPath(char*, size_t);
 

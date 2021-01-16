@@ -19,18 +19,22 @@ public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
-public slots:
-    void handleSVN(const svnWorker::svnResults &);
-    void settingsWindow();
-    void enable();
-    void install();
-
-signals:
-    void operateSVN(const svnWorker::svnTasks &);
-
 private:
     Ui::MainWindow *ui;
     Settings* settings;
     QThread thread;
+    bool installed;
+
+public slots:
+    void workerResult(const Worker::Results_t &);
+
+private slots:
+    void settingsWindow();
+    void setupButton();
+    void handleButton();
+
+signals:
+    void workerOperate(const Worker::Tasks_t &);
+
 };
 #endif // MAINWINDOW_HPP

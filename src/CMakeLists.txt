@@ -1,3 +1,5 @@
+set(C_STANDARD 99)
+
 set(CORE_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/common.c
     ${CMAKE_CURRENT_LIST_DIR}/common.h

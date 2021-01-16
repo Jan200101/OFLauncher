@@ -6,6 +6,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Gui REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Gui REQUIRED)
 
@@ -25,3 +26,4 @@ SET(QT_SOURCES
 
 add_executable(${NAME} ${QT_SOURCES})
 target_link_libraries(${NAME} PRIVATE core Qt${QT_VERSION_MAJOR}::Widgets)
+set_property(TARGET ${NAME} PROPERTY CXX_STANDARD 11)

@@ -1,5 +1,6 @@
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
+#include <limits.h>
 
 #include "svn.h"
 #include "common.h"
@@ -11,12 +12,22 @@ int svn_check()
 
 int svn_checkout(char* path, char* url)
 {
-    return execl(SVN, SVN, SVN_CHECKOUT, url, path, NULL);
+    char exec[PATH_MAX] = {0};
+    strcpy(exec, SVN " " SVN_CHECKOUT " ");
+    strcat(exec, url);
+    strcat(exec, " ");
+    strcat(exec, path);
+
+    return system(exec);
 }
 
 int svn_update(char* path)
 {
-    return execl(SVN, SVN, SVN_UPDATE, path, NULL);
+    char exec[PATH_MAX] = {0};
+    strcpy(exec, SVN " " SVN_UPDATE " ");
+    strcat(exec, path);
+
+    return system(exec);
 }
 
 int svn_delete(char* path)

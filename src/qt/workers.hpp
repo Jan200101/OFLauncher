@@ -2,33 +2,52 @@
 #define WORKERS_HPP
 
 #include <QObject>
+#include <limits.h>
 
-class svnWorker : public QObject
+#include "svn.h"
+
+class Worker : public QObject
 {
     Q_OBJECT
 
-public:
-    enum svnTasks
-    {
-        SVN_INSTALL,
-        SVN_UPDATE,
-        SVN_DELETE,
-    };
-    Q_ENUM(svnTasks)
+private:
+    char mod[PATH_MAX];
+    size_t modlen;
 
-    enum svnResults
+public:
+    Worker();
+
+    enum Tasks_t
     {
-        SVN_UNKNOWN,
-        SVN_BAD_PATH,
-        SVN_GOOD
+        TASK_INVALID,
+
+        TASK_IS_FOLDER,
+
+        TASK_INSTALL,
+        TASK_UNINSTALL,
+        TASK_UPDATE,
+        TASK_UPDATE_RUN,
+        TASK_RUN,
     };
-    Q_ENUM(svnResults)
+    Q_ENUM(Tasks_t)
+
+    enum Results_t
+    {
+        RESULT_NONE,
+        RESULT_EXIT,
+
+        RESULT_FOLDER_EXISTS,
+        RESULT_FOLDER_MISSING,
+
+        RESULT_UPDATE_RUN,
+    };
+    Q_ENUM(Results_t)
 
 public slots:
-    void doWork(const svnTasks &);
+    void doWork(const Tasks_t &);
 
 signals:
-    void resultReady(const svnResults &);
+    void resultReady(const Results_t &);
 
 };
 

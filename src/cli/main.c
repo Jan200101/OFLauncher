@@ -138,7 +138,7 @@ int run(int argc UNUSED, char** argv UNUSED)
         return 0;
     }
 
-    runMod(mod, sizeof(mod));
+    runMod(mod);
 
     return 0;
 }

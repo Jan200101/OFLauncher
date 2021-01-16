@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <limits.h>
@@ -8,14 +9,17 @@
 #include "steam.h"
 #include "common.h"
 
-int runMod(char* modpath, size_t size UNUSED)
+int runMod(char* modpath)
 {
     char steam[PATH_MAX];
     getSteamPath(steam, sizeof(steam));
 
     strncat(steam, STEAM_BIN, sizeof(steam) - strlen(steam) - 1);
 
-    return execl(steam, steam, "-applaunch", STEAM_APPID, "-game", modpath, "-secure", "-steam", NULL);
+    char modexec[PATH_MAX*2]; // lets be sure for now
+    snprintf(modexec, sizeof(modexec), "%s -applaunch %s -game %s -secure -steam", steam, STEAM_APPID, modpath);
+
+    return system(modexec);
 }
 
 size_t getModPath(char* buf, size_t size)
