@@ -25,12 +25,14 @@ private:
     QThread thread;
     bool installed;
 
+    void setupButton();
+    void resetProgress();
+
 public slots:
     void workerResult(const Worker::Results_t &);
 
 private slots:
     void settingsWindow();
-    void setupButton();
     void handleButton();
 
 signals:

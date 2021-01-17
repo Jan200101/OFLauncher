@@ -10,9 +10,7 @@ src/svn
  replace calls to svn binary with svn lib calls
 
 src/qt
- clean up structure
- implement functionality of all features in the background
-  spin off into different thread and sync process? (might depend on svn rewrite)
+ get fonts working on windows
 
 README
  clean up

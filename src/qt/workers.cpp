@@ -30,9 +30,15 @@ void Worker::doWork(const enum Worker::Tasks_t &parameter) {
                 break;
 
             case TASK_RUN:
-                runMod(mod);
-                result = RESULT_EXIT;
-                std::cout << "RUN" << std::endl;
+                if (isSteamRunning())
+                {
+                    runMod(mod);
+                    result = RESULT_EXIT;
+                }
+                else
+                {
+                    result = RESULT_NO_STEAM;
+                }
                 break;
         }
     }

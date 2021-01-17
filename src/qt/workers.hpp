@@ -40,6 +40,8 @@ public:
         RESULT_FOLDER_MISSING,
 
         RESULT_UPDATE_RUN,
+
+        RESULT_NO_STEAM
     };
     Q_ENUM(Results_t)
 
