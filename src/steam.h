@@ -6,6 +6,13 @@ extern "C" {
 #endif
 
 #include <stddef.h>
+#include <stdbool.h>
+
+#ifdef __linux__
+#define STEAM_PROC "steam"
+#elif _WIN32
+#define STEAM_PROC "steam.exe"
+#endif
 
 #define STEAM_BIN "steam.sh"
 #define STEAM_APPID "243750"
@@ -18,6 +25,7 @@ extern "C" {
 int runMod(char*);
 size_t getModPath(char*, size_t);
 size_t getSteamPath(char*, size_t);
+bool isSteamRunning();
 
 #ifdef __cplusplus
 }

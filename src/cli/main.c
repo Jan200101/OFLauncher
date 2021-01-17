@@ -138,7 +138,10 @@ int run(int argc UNUSED, char** argv UNUSED)
         return 0;
     }
 
-    runMod(mod);
+    if (isSteamRunning())
+        runMod(mod);
+    else
+        fprintf(stderr, "Steam is not running\n");
 
     return 0;
 }
@@ -156,9 +159,11 @@ int debug(int argc UNUSED, char** argv UNUSED)
     getSteamPath(steam, sizeof(steam));
 
     printf("svn_check %i\n"
+           "steam run %i\n"
            "steam path %s\n"
            "mod path %s\n",
            svn_check(),
+           isSteamRunning(),
            steam,
            mod);
 
