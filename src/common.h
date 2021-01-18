@@ -15,6 +15,8 @@ extern "C" {
 
 #include "stdbool.h"
 
+int runMod(char*);
+
 struct stat getStat(const char* path);
 bool isFile(const char* path);
 bool isDir(const char* path);

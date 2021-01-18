@@ -66,6 +66,7 @@ void MainWindow::workerResult(const enum Worker::Results_t &result)
     switch (result)
     {
         case Worker::RESULT_NONE:
+            resetProgress();
             break;
 
         case Worker::RESULT_EXIT:

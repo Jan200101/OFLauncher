@@ -10,6 +10,7 @@ extern "C" {
 
 size_t getRepoURL(char*, size_t);
 size_t getRepoName(char*, size_t);
+size_t getModPath(char*, size_t);
 
 #ifdef __cplusplus
 }

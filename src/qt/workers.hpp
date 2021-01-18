@@ -14,6 +14,9 @@ private:
     char mod[PATH_MAX];
     size_t modlen;
 
+    char url[PATH_MAX];
+    size_t urllen;
+
 public:
     Worker();
 
@@ -39,6 +42,9 @@ public:
         RESULT_FOLDER_EXISTS,
         RESULT_FOLDER_MISSING,
 
+        RESULT_INSTALL_COMPLETE,
+        RESULT_UNINSTALL_COMPLETE,
+        RESULT_UPDATE_COMPLETE,
         RESULT_UPDATE_RUN,
 
         RESULT_NO_STEAM

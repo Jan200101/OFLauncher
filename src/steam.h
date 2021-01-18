@@ -8,10 +8,10 @@ extern "C" {
 #include <stddef.h>
 #include <stdbool.h>
 
-#ifdef __linux__
-#define STEAM_PROC "steam"
-#elif _WIN32
+#ifdef _WIN32
 #define STEAM_PROC "steam.exe"
+#else
+#define STEAM_PROC "steam"
 #endif
 
 #define STEAM_BIN "steam.sh"
@@ -22,8 +22,6 @@ extern "C" {
 
 #define MOD_DIR "steamapps/sourcemods/"
 
-int runMod(char*);
-size_t getModPath(char*, size_t);
 size_t getSteamPath(char*, size_t);
 bool isSteamRunning();
 

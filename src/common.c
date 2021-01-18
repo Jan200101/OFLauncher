@@ -2,13 +2,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <limits.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <dirent.h>
 
 #include "common.h"
+#include "steam.h"
+
+int runMod(char* modpath)
+{
+    char steam[PATH_MAX];
+    getSteamPath(steam, sizeof(steam));
+
+    strncat(steam, STEAM_BIN, sizeof(steam) - strlen(steam) - 1);
+
+    char modexec[PATH_MAX*2]; // lets be sure for now
+    snprintf(modexec, sizeof(modexec), "%s -applaunch %s -game %s -secure -steam", steam, STEAM_APPID, modpath);
+
+    return system(modexec);
+}
 
 struct stat getStat(const char* path)
 {
