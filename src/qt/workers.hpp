@@ -47,6 +47,8 @@ public:
         RESULT_UPDATE_COMPLETE,
         RESULT_UPDATE_RUN,
 
+        RESULT_FAILURE, // TODO make specific FAILURE for each results
+
         RESULT_NO_STEAM
     };
     Q_ENUM(Results_t)
