@@ -15,7 +15,8 @@ Worker::Worker()
 void Worker::doWork(const enum Worker::Tasks_t &parameter) {
     Results_t result = RESULT_NONE;
 
-    if (modlen)
+
+    if (modlen && (isDir(mod) || parameter == TASK_INSTALL))
     {
         switch (parameter)
         {
