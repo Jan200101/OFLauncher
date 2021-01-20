@@ -86,8 +86,7 @@ void MainWindow::workerResult(const enum Worker::Results_t &result)
         case Worker::RESULT_INSTALL_COMPLETE:
             ui->status->setFormat("Installed");
             ui->status->setValue(100);
-            installed = true;
-            handleButton();
+            setupButton();
             break;
 
         case Worker::RESULT_UNINSTALL_COMPLETE:
