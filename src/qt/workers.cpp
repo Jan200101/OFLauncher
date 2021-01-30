@@ -24,40 +24,34 @@ void Worker::doWork(const enum Worker::Tasks_t &parameter) {
             case TASK_INVALID:
                 break;
 
+            case TASK_INIT:
+                result = svn_init() ? RESULT_INIT_FAILURE : RESULT_INIT_COMPLETE;
+                break;
+
             case TASK_IS_FOLDER:
                 result = RESULT_FOLDER_EXISTS;
                 break;
 
             case TASK_UNINSTALL:
-                if (direxists) svn_delete(mod);
-                result = RESULT_UNINSTALL_COMPLETE;
+                if (direxists) result = svn_delete(mod) ? RESULT_UNINSTALL_FAILURE : RESULT_UNINSTALL_COMPLETE;
                 break;
 
             case TASK_INSTALL:
-                if (!direxists) svn_checkout(mod, url);
-                result = RESULT_INSTALL_COMPLETE;
+                if (!direxists) result = svn_checkout(mod, url) ? RESULT_INSTALL_FAILURE : RESULT_INSTALL_COMPLETE;
                 break;
 
             case TASK_UPDATE:
-                if (direxists) svn_update(mod);
+                if (direxists) result = svn_update(mod) ? RESULT_UPDATE_FAILURE : RESULT_UPDATE_COMPLETE;
                 result = RESULT_UPDATE_COMPLETE;
                 break;
 
             case TASK_UPDATE_RUN:
-                svn_update(mod);
-                result = RESULT_UPDATE_RUN;
+                if (direxists) result = svn_update(mod) ? RESULT_UPDATE_FAILURE : RESULT_UPDATE_RUN;
                 break;
 
             case TASK_RUN:
-                if (isSteamRunning())
-                {
-                    runMod(mod);
-                    result = RESULT_EXIT;
-                }
-                else
-                {
-                    result = RESULT_NO_STEAM;
-                }
+                result = isSteamRunning() ? RESULT_EXIT : RESULT_NO_STEAM; 
+                if (result == RESULT_EXIT) runMod(mod);
                 break;
         }
     }

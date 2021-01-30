@@ -26,6 +26,7 @@ public:
 
         TASK_IS_FOLDER,
 
+        TASK_INIT,
         TASK_INSTALL,
         TASK_UNINSTALL,
         TASK_UPDATE,
@@ -42,12 +43,15 @@ public:
         RESULT_FOLDER_EXISTS,
         RESULT_FOLDER_MISSING,
 
+        RESULT_INIT_COMPLETE,
+        RESULT_INIT_FAILURE,
         RESULT_INSTALL_COMPLETE,
+        RESULT_INSTALL_FAILURE,
         RESULT_UNINSTALL_COMPLETE,
+        RESULT_UNINSTALL_FAILURE,
         RESULT_UPDATE_COMPLETE,
         RESULT_UPDATE_RUN,
-
-        RESULT_FAILURE, // TODO make specific FAILURE for each results
+        RESULT_UPDATE_FAILURE,
 
         RESULT_NO_STEAM
     };

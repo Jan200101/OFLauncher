@@ -34,15 +34,6 @@ static const struct Command commands[] = {
 
 int main(int argc, char** argv)
 {
-    // TODO renable after testing is done
-    /*
-    if (svn_check())
-    {
-        fprintf(stderr, "svn_check failed\n");
-        return -1;
-    }
-    */
-
     if (argc > 1)
     {
         for (unsigned long i = 0; i < ARRAY_LEN(commands); ++i)
@@ -55,6 +46,7 @@ int main(int argc, char** argv)
 
 int install(int argc UNUSED, char** argv UNUSED)
 {
+    int retval;
     char mod[PATH_MAX];
     getModPath(mod, sizeof(mod));
 
@@ -67,7 +59,11 @@ int install(int argc UNUSED, char** argv UNUSED)
     char url[PATH_MAX];
     getRepoURL(url, sizeof(url));
 
-    return svn_checkout(mod, url);
+    svn_init();
+    fprintf(stderr, "Installing OpenFortress to this directory (this may take a while)\n\"%s\"\n", mod);
+    if(!(retval = svn_checkout(mod, url))) fprintf(stderr, "Done\n");
+
+    return retval;
 }
 
 int uninstall(int argc UNUSED, char** argv UNUSED)
@@ -115,6 +111,7 @@ int uninstall(int argc UNUSED, char** argv UNUSED)
 
 int update(int argc UNUSED, char** argv UNUSED)
 {
+    int retval;
     char mod[PATH_MAX];
     getModPath(mod, sizeof(mod));
 
@@ -124,7 +121,11 @@ int update(int argc UNUSED, char** argv UNUSED)
         return 0;
     }
 
-    return svn_update(mod);
+    svn_init();
+
+    fprintf(stderr, "Updating OpenFortress (this may take a while)\n");
+    if (!(retval = svn_update(mod))) fprintf(stderr, "Done\n");
+    return retval;
 }
 
 int run(int argc UNUSED, char** argv UNUSED)
@@ -153,19 +154,20 @@ int config(int argc UNUSED, char** argv UNUSED)
 
 int debug(int argc UNUSED, char** argv UNUSED)
 {
-    char mod[PATH_MAX];
-    getModPath(mod, sizeof(mod));
     char steam[PATH_MAX];
-    getSteamPath(steam, sizeof(steam));
+    char mod[PATH_MAX];
 
-    printf("svn_check %i\n"
-           "steam run %i\n"
-           "steam path %s\n"
-           "mod path %s\n",
-           svn_check(),
-           isSteamRunning(),
-           steam,
-           mod);
+    printf("steam run %i\n",
+           isSteamRunning()
+           );
+
+    if (getSteamPath(steam, sizeof(steam)))
+        printf("steam path %s\n",
+                steam);
+
+    if (getModPath(mod, sizeof(mod)))
+        printf("mod path %s\n",
+                mod);
 
 
     return 0;

@@ -57,14 +57,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->playButton, SIGNAL(clicked()), this, SLOT(handleButton()));
 
 
-    setupButton();
-
+    workerOperate(Worker::TASK_INIT);
 }
 
 void MainWindow::workerResult(const enum Worker::Results_t &result)
 {
     switch (result)
     {
+
+        case Worker::RESULT_UNINSTALL_COMPLETE:
+        case Worker::RESULT_UNINSTALL_FAILURE:
+        // TODO find better use for these
         case Worker::RESULT_NONE:
             resetProgress();
             break;
@@ -83,20 +86,29 @@ void MainWindow::workerResult(const enum Worker::Results_t &result)
             installed = false;
             break;
 
+        case Worker::RESULT_INIT_COMPLETE:
+            setupButton();
+            break;
+
+        case Worker::RESULT_INIT_FAILURE:
+            // TODO
+            break;
+
         case Worker::RESULT_INSTALL_COMPLETE:
             ui->status->setFormat("Installed");
             ui->status->setValue(100);
             setupButton();
             break;
 
-        case Worker::RESULT_UNINSTALL_COMPLETE:
-            // TODO
+        case Worker::RESULT_INSTALL_FAILURE:
+            ui->status->setFormat("Install failed");
+            ui->status->setValue(100);
             break;
 
         case Worker::RESULT_UPDATE_COMPLETE:
-            // TODO
+            ui->status->setFormat("Updated");
+            ui->status->setValue(100);
             break;
-
 
         case Worker::RESULT_UPDATE_RUN:
             ui->status->setFormat("Launching");
@@ -104,11 +116,16 @@ void MainWindow::workerResult(const enum Worker::Results_t &result)
             workerOperate(Worker::TASK_RUN);
             break;
 
+        case Worker::RESULT_UPDATE_FAILURE:
+            ui->status->setFormat("Update failed");
+            ui->status->setValue(100);
+            break;
+
         case Worker::RESULT_NO_STEAM:
             resetProgress();
             QMessageBox::information(this, windowTitle(), "Steam is not running" );
-
             break;
+
     }
 }
 
@@ -128,13 +145,13 @@ void MainWindow::handleButton()
     if (installed)
     {
         workerOperate(Worker::TASK_UPDATE_RUN);
-        ui->status->setFormat("Updating");
+        ui->status->setFormat("Updating (may take a while)");
         ui->status->setValue(33);
     }
     else
     {
         workerOperate(Worker::TASK_INSTALL);
-        ui->status->setFormat("Installing");
+        ui->status->setFormat("Installing (may take a while)");
         ui->status->setValue(50);
     }
 }

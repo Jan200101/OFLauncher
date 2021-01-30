@@ -9,11 +9,24 @@
 #define FALLTHROUGH
 #endif
 
+#ifdef _WIN32
+#include <wow64apiset.h>
+#include <processthreadsapi.h>
+
+#define PGRM64 "C:\\Program Files (x86)"
+#define PGRM32 "C:\\Program Files"
+
+#define IF_WIN64 \
+    BOOL f64; \
+    if(IsWow64Process(GetCurrentProcess(), &f64) && f64)
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #include "stdbool.h"
+
 
 int runMod(char*);
 

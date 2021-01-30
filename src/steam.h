@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stddef.h>
 #include <stdbool.h>
+#include "common.h"
 
 #ifdef _WIN32
 #define STEAM_PROC "steam.exe"
@@ -17,10 +18,17 @@ extern "C" {
 #define STEAM_BIN "steam.sh"
 #define STEAM_APPID "243750"
 
-#define STEAM_DIR ".local/share/Steam/"
-#define FLATPAK_DIR ".var/app/com.valvesoftware.Steam/" STEAM_DIR
-
+#ifdef _WIN32
+#define FALLBACK64_DIR PGRM64 "\\Steam"
+#define FALLBACK32_DIR PGRM32 "\\Steam"
+#define MOD_DIR "\\steamapps\\sourcemods\\"
+// TODO check if this is the right registry path for x86
+#define REG_PATH "SOFTWARE\\Wow6432Node\\Valve\\Steam"
+#else // _WIN32
 #define MOD_DIR "steamapps/sourcemods/"
+#define STEAM_DIR "/.local/share/Steam/"
+#define FLATPAK_DIR "/.var/app/com.valvesoftware.Steam" STEAM_DIR
+#endif
 
 size_t getSteamPath(char*, size_t);
 bool isSteamRunning();

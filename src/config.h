@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#define DEFAULT_REPO "https://svn.openfortress.fun/svn/open_fortress/"
+#define DEFAULT_REPO "https://svn.openfortress.fun/svn/open_fortress"
 #define DEFAULT_NAME "open_fortress"
 
 size_t getRepoURL(char*, size_t);

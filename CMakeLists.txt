@@ -5,6 +5,8 @@ if(NOT CMAKE_BUILD_TYPE)
         "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif()
 
+project(OFLauncher VERSION 0.1.0 LANGUAGES C)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 set(VERSIONS CLI QT)
@@ -13,8 +15,7 @@ foreach(VER ${VERSIONS})
     string(TOLOWER ${VER} VER_LOWER)
     option("COMPILE_${VER}" "Compile the %{VER_LOWER} version" ON)
 endforeach()
-
-project(OFLauncher VERSION 0.1.0 LANGUAGES C)
+option("MXE" "Enables forced linkage to certain libraries required by MXE" OFF)
 
 add_compile_definitions(NAME="${CMAKE_PROJECT_NAME}")
 add_compile_definitions(VERSION="${CMAKE_PROJECT_VERSION}")
@@ -31,6 +32,8 @@ endif()
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     add_compile_definitions(DEBUG)
 endif()
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 add_subdirectory(src)
 
