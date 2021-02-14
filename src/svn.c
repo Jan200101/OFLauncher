@@ -20,7 +20,7 @@ svn_opt_revision_t rev;
 svn_client_ctx_t *ctx;
 svn_error_t *err;
 
-inline int handle_error()
+int handle_error()
 {
     if (err)
     {
