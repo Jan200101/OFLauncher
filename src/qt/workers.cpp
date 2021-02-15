@@ -15,10 +15,10 @@ Worker::Worker()
 void Worker::doWork(const enum Worker::Tasks_t &parameter) {
     Results_t result = RESULT_NONE;
 
-    bool direxists = isDir(mod);
 
-    if (modlen && (direxists || parameter == TASK_INSTALL || parameter == TASK_INIT))
+    if (modlen)
     {
+        bool direxists = isDir(mod);
         switch (parameter)
         {
             case TASK_INVALID:
@@ -29,7 +29,7 @@ void Worker::doWork(const enum Worker::Tasks_t &parameter) {
                 break;
 
             case TASK_IS_FOLDER:
-                result = RESULT_FOLDER_EXISTS;
+                result = direxists ? RESULT_FOLDER_EXISTS : RESULT_FOLDER_MISSING;
                 break;
 
             case TASK_UNINSTALL:
@@ -42,7 +42,6 @@ void Worker::doWork(const enum Worker::Tasks_t &parameter) {
 
             case TASK_UPDATE:
                 if (direxists) result = svn_update(mod) ? RESULT_UPDATE_FAILURE : RESULT_UPDATE_COMPLETE;
-                result = RESULT_UPDATE_COMPLETE;
                 break;
 
             case TASK_UPDATE_RUN:
@@ -57,7 +56,14 @@ void Worker::doWork(const enum Worker::Tasks_t &parameter) {
     }
     else
     {
-        result = RESULT_FOLDER_MISSING;
+        /*
+         * getModPath() returns 0 when
+         * the steam directory does not exist
+         * or 0 is given as the size argument,
+         * only the former is true so modlen
+         * 0 means steam is not installed
+         */
+        result = RESULT_NO_STEAM;
     }
 
     emit resultReady(result);
