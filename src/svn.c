@@ -43,11 +43,19 @@ int svn_init()
 int svn_checkout(char* path, char* url)
 {
     char exec[PATH_MAX] = {0};
-    strcpy(exec, SVN);
-    strcat(exec, " " SVN_CHECKOUT " ");
+    strcpy(exec, "\"");
+#ifdef _WIN32
+    strcat(exec, "\"");
+#endif
+    strcat(exec, SVN);
+    strcat(exec, "\" " SVN_CHECKOUT " \"");
     strcat(exec, url);
-    strcat(exec, " ");
+    strcat(exec, "\" \"");
     strcat(exec, path);
+    strcat(exec, "\"");
+#ifdef _WIN32
+    strcat(exec, "\"");
+#endif
 
     return system(exec);
 }
@@ -55,9 +63,17 @@ int svn_checkout(char* path, char* url)
 int svn_update(char* path)
 {
     char exec[PATH_MAX] = {0};
-    strcpy(exec, SVN);
-    strcat(exec, " " SVN_UPDATE " ");
+    strcpy(exec, "\"");
+#ifdef _WIN32
+    strcat(exec, "\"");
+#endif
+    strcat(exec, SVN);
+    strcat(exec, "\" " SVN_UPDATE " \"");
     strcat(exec, path);
+    strcat(exec, "\"");
+#ifdef _WIN32
+    strcat(exec, "\"");
+#endif
 
     return system(exec);
 }
