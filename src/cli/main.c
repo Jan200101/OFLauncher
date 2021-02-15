@@ -59,7 +59,12 @@ int install(int argc UNUSED, char** argv UNUSED)
     char url[PATH_MAX];
     getRepoURL(url, sizeof(url));
 
-    svn_init();
+    if (svn_init())
+    {
+        fprintf(stderr, "svn_init() failed\n");
+        return 0;
+    }
+
     fprintf(stderr, "Installing OpenFortress to this directory (this may take a while)\n\"%s\"\n", mod);
     if(!(retval = svn_checkout(mod, url))) fprintf(stderr, "Done\n");
 
@@ -121,7 +126,11 @@ int update(int argc UNUSED, char** argv UNUSED)
         return 0;
     }
 
-    svn_init();
+    if (svn_init())
+    {
+        fprintf(stderr, "svn_init() failed\n");
+        return 0;
+    }
 
     fprintf(stderr, "Updating OpenFortress (this may take a while)\n");
     if (!(retval = svn_update(mod))) fprintf(stderr, "Done\n");
@@ -157,9 +166,11 @@ int debug(int argc UNUSED, char** argv UNUSED)
     char steam[PATH_MAX];
     char mod[PATH_MAX];
 
-    printf("steam run %i\n",
-           isSteamRunning()
-           );
+    printf("svn_init %i\n"
+           "steam run %i\n",
+            svn_init(),
+            isSteamRunning()
+            );
 
     if (getSteamPath(steam, sizeof(steam)))
         printf("steam path %s\n",

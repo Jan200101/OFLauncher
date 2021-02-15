@@ -13,8 +13,8 @@
 #include <wow64apiset.h>
 #include <processthreadsapi.h>
 
-#define PGRM64 "C:\\Program Files (x86)"
 #define PGRM32 "C:\\Program Files"
+#define PGRM64 "C:\\Program Files (x86)"
 
 #define IF_WIN64 \
     BOOL f64; \
