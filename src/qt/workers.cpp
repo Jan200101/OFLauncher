@@ -17,7 +17,7 @@ void Worker::doWork(const enum Worker::Tasks_t &parameter) {
 
     bool direxists = isDir(mod);
 
-    if (modlen && (direxists || parameter == TASK_INSTALL))
+    if (modlen && (direxists || parameter == TASK_INSTALL || parameter == TASK_INIT))
     {
         switch (parameter)
         {
