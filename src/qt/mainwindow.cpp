@@ -91,7 +91,8 @@ void MainWindow::workerResult(const enum Worker::Results_t &result)
             break;
 
         case Worker::RESULT_INIT_FAILURE:
-            // TODO
+            QMessageBox::information(this, windowTitle(), "Could not find a SVN binary");
+            QCoreApplication::quit();
             break;
 
         case Worker::RESULT_INSTALL_COMPLETE:

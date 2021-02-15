@@ -1,70 +1,65 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-#include <svn_cmdline.h>
-#include <svn_client.h>
-#include <svn_pools.h>
-#include <svn_opt.h>
-#include <svn_fs.h>
 
 #include "svn.h"
 #include "common.h"
 
-// a bunch of svn functions in here are deprecated
-// we do not care
-// they are simpler to use and supported on older systems
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#ifdef _WIN32
+const char SVN_BINS[SVN_MAX][255] = {
+    "\\Subversion\\bin\\svn.exe",
+    "\\TortoiseSVN\\bin\\svn.exe"
+};
 
-apr_pool_t *pool;
-svn_opt_revision_t rev;
-svn_client_ctx_t *ctx;
-svn_error_t *err;
-
-int handle_error()
-{
-    if (err)
-    {
-        svn_handle_error2 (err, stderr, FALSE, NAME ": ");
-        return 1;
-    }
-
-    return 0;
-}
+char SVN[PATH_MAX] = {0};
+#endif
 
 int svn_init()
 {
-    svn_cmdline_init(NAME, stderr);
+#ifdef _WIN32
+    strcpy(SVN, PGRM32);
+    for (int i = 0; i < SVN_MAX; ++i)
+    {
+        strcpy(SVN+strlen(PGRM32), SVN_BINS[i]);
+        if (isFile(SVN)) return 0;
+    }
 
-    pool = svn_pool_create(NULL);
-    err = svn_fs_initialize(pool); // TODO check error
-    if (handle_error()) return 1;
+    IF_WIN64
+    {
+        strcpy(SVN, PGRM64);
+        for (int i = 0; i < SVN_MAX; ++i)
+        {
+            strcpy(SVN+strlen(PGRM64), SVN_BINS[i]);
+            if (isFile(SVN)) return 0;
+        }
+    }
 
-    rev.kind = svn_opt_revision_head;
-
-    err = svn_config_ensure(NULL, pool);
-    if (handle_error()) return 1;
-    err = svn_client_create_context(&ctx, pool);
-    if (handle_error()) return 1;
-    err = svn_config_get_config(&(ctx->config), NULL, pool);
-    if (handle_error()) return 1;
-
-    return 0;   
+    return 1;
+#else
+    return !isFile(SVN);
+#endif
 }
 
 int svn_checkout(char* path, char* url)
 {
-    err = svn_client_checkout(NULL, url, path, &rev, true, ctx, pool);
+    char exec[PATH_MAX] = {0};
+    strcpy(exec, SVN);
+    strcat(exec, " " SVN_CHECKOUT " ");
+    strcat(exec, url);
+    strcat(exec, " ");
+    strcat(exec, path);
 
-    return handle_error();
+    return system(exec);
 }
 
 int svn_update(char* path)
 {
-    svn_revnum_t tmp;
+    char exec[PATH_MAX] = {0};
+    strcpy(exec, SVN);
+    strcat(exec, " " SVN_UPDATE " ");
+    strcat(exec, path);
 
-    err = svn_client_update(&tmp, path, &rev, true, ctx, pool);
-
-    return handle_error();
+    return system(exec);
 }
 
 int svn_delete(char* path)

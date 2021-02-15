@@ -5,6 +5,20 @@
 extern "C" {
 #endif
 
+#ifdef _WIN32
+enum SVN_TYPE {
+    WIN32SVN,
+    TURTOISE,
+
+    SVN_MAX,
+    SVN_NONE
+};
+#else
+#define SVN "/usr/bin/svn"
+#endif
+#define SVN_CHECKOUT "checkout"
+#define SVN_UPDATE "update"
+
 int svn_init();
 int svn_checkout(char*, char*);
 int svn_update(char*);
