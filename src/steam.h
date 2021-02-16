@@ -11,11 +11,12 @@ extern "C" {
 
 #ifdef _WIN32
 #define STEAM_PROC "steam.exe"
+#define STEAM_BIN "\\" STEAM_PROC
 #else
 #define STEAM_PROC "steam"
+#define STEAM_BIN "steam.sh"
 #endif
 
-#define STEAM_BIN "steam.sh"
 #define STEAM_APPID "243750"
 
 #ifdef _WIN32

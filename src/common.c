@@ -19,7 +19,18 @@ int runMod(char* modpath)
     strncat(steam, STEAM_BIN, sizeof(steam) - strlen(steam) - 1);
 
     char modexec[PATH_MAX*2]; // lets be sure for now
-    snprintf(modexec, sizeof(modexec), "%s -applaunch %s -game %s -secure -steam", steam, STEAM_APPID, modpath);
+
+    strcpy(modexec, "\"");
+#ifdef _WIN32
+    strcat(modexec, "\"");
+#endif
+    strcat(modexec, steam);
+    strcat(modexec, "\" -applaunch " STEAM_APPID " -game \"");
+    strcat(modexec, modpath);
+    strcat(modexec, "\" -secure -steam");
+#ifdef _WIN32
+    strcat(modexec, "\"");
+#endif
 
     return system(modexec);
 }
