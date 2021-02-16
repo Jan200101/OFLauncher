@@ -96,14 +96,15 @@ int uninstall(int argc UNUSED, char** argv UNUSED)
                 fprintf(stderr, "Deleting\n");
                 retval = svn_delete(mod);
 
-                FALLTHROUGH;
+                /* fallthrough */
             case 'n':
                 breakout = true;
                 break;
 
             default:
                 fprintf(stderr, "Input y or n\n");
-                FALLTHROUGH;
+                /* fallthrough */
+
             case 10:
                 break;
         }

@@ -3,10 +3,8 @@
 
 #ifdef __GNUC__
 #define UNUSED __attribute__((__unused__))
-#define FALLTHROUGH __attribute__ ((fallthrough))
 #else
 #define UNUSED
-#define FALLTHROUGH
 #endif
 
 #ifdef _WIN32
@@ -26,7 +24,6 @@ extern "C" {
 #endif
 
 #include "stdbool.h"
-
 
 int runMod(char*);
 
