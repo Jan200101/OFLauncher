@@ -25,6 +25,7 @@ SET(QT_SOURCES
 )
 
 if(WIN32)
+    string(REPLACE "." "," CMAKE_PROJECT_COMMAVERSION ${CMAKE_PROJECT_VERSION})
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/res/version.rc.in ${CMAKE_CURRENT_BINARY_DIR}/version.rc @ONLY)
     set(QT_SOURCES ${QT_SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/version.rc)
 endif()

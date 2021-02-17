@@ -1,7 +1,7 @@
 IDI_ICON1 ICON DISCARDABLE "@CMAKE_CURRENT_SOURCE_DIR@/res/icon.ico"
 1 VERSIONINFO
-FILEVERSION     1,0,0,0
-PRODUCTVERSION  1,0,0,0
+FILEVERSION     @CMAKE_PROJECT_COMMAVERSION@
+PRODUCTVERSION  @CMAKE_PROJECT_COMMAVERSION@
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
@@ -9,7 +9,7 @@ BEGIN
     BEGIN
       VALUE "FileVersion", "1.0"
       VALUE "InternalName", "@CMAKE_PROJECT_NAME@"
-      VALUE "LegalCopyright", "GPLv3"
+      VALUE "LegalCopyright", "Licensed under GPLv3"
       VALUE "OriginalFilename", "@NAME@.exe"
       VALUE "ProductName", "@CMAKE_PROJECT_NAME@"
       VALUE "ProductVersion", "@CMAKE_PROJECT_VERSION@"
